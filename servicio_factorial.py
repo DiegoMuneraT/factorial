@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -12,7 +13,9 @@ def obtener_factorial(n):
 @app.route('/factorial/<int:num>', methods=['GET'])
 def factorial(num):
     resultado = obtener_factorial(num)
-    return jsonify({'resultado': resultado})
+    container_id = os.uname()[1]
+    
+    return jsonify({'resultado': resultado}, {'container_id': container_id})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
